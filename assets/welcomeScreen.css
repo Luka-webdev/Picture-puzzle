@@ -1,0 +1,97 @@
+#welcomeScreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #1e272e;
+  overflow: hidden;
+}
+#logo {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 10vw;
+}
+[id^="title"] {
+  width: 25%;
+  height: 100%;
+  float: left;
+  font-size: 8vw;
+  background-color: wheat;
+}
+[id^="title"]:nth-child(odd) {
+  text-align: right;
+}
+#title1 {
+  animation: move1 2s linear;
+}
+@keyframes move1 {
+  from {
+    opacity: 0;
+    transform: translateX(-180%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+#title2 {
+  animation: move2 2s linear;
+}
+@keyframes move2 {
+  from {
+    opacity: 0;
+    transform: translateY(180%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+#title3 {
+  animation: move3 2s linear;
+}
+@keyframes move3 {
+  from {
+    opacity: 0;
+    transform: translateY(-180%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+#title4 {
+  animation: move4 2s linear;
+}
+@keyframes move4 {
+  from {
+    opacity: 0;
+    transform: translateX(180%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+#link {
+  opacity: 0;
+  display: inline-block;
+  position: absolute;
+  bottom: 9vh;
+  right: 9vw;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 3vw;
+  color: antiquewhite;
+  animation: link 1s linear 2s forwards;
+}
+@keyframes link {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

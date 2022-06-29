@@ -12,16 +12,17 @@ app.layout = html.Div([
 ])
 
 welcome_screen = html.Div([
-    html.Label('Ekran powitalny'),
-    dcc.Link('Przejdź dalej by wybrać obraz', href='/select')
-])
+    html.Div([
+        html.P(id='title1', children="Pic"),
+        html.P(id='title2', children="ture"),
+        html.P(id='title3', children=" Puz"),
+        html.P(id='title4', children="zle"),
+    ], id='logo'),
+    dcc.Link('Dalej', href='/select', id='link')
+], id='welcomeScreen')
+
 select_img = html.Div([
     html.Label('Wybierz obraz'),
-    dcc.Link('Przejdź dalej by zagrać', href='/game')
-])
-game = html.Div([
-    html.Label('Witaj w grze'),
-    dcc.Link('Wróć by zmienić obraz', href='/select')
 ])
 
 
@@ -32,8 +33,6 @@ game = html.Div([
 def show_pages(path):
     if path == '/select':
         return select_img
-    elif path == '/game':
-        return game
     else:
         return welcome_screen
 
