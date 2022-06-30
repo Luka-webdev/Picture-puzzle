@@ -1,0 +1,21 @@
+#game {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: wheat;
+}
+#load {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#picture {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 70%;
+  border: 3px solid black;
+}

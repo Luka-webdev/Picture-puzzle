@@ -1,4 +1,5 @@
 @import "welcomeScreen";
+@import "game";
 
 * {
   margin: 0;

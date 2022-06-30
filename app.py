@@ -22,8 +22,9 @@ welcome_screen = html.Div([
 ], id='welcomeScreen')
 
 select_img = html.Div([
-    html.Label('Wybierz obraz'),
-])
+    dcc.Upload(html.Button('Wczytaj obraz'), id='load'),
+    html.Div(id='picture')
+], id='game')
 
 
 @app.callback(
