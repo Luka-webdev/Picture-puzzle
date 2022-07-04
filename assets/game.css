@@ -4,18 +4,46 @@
   height: 100%;
   background-color: wheat;
 }
-#load {
+#loadArea {
   position: absolute;
-  top: 5%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
 }
-#picture {
+#loadArea > * {
+  text-align: center;
+}
+H1 {
+  font-size: 5vw;
+  margin-bottom: 3vw;
+}
+#loadArea p {
+  font-size: 4vw;
+  animation: up-down 1s linear alternate infinite;
+  transform: rotate(180deg);
+}
+@keyframes up-down {
+  from {
+    transform: rotate(180deg) translateY(30%);
+  }
+  to {
+    transform: rotate(180deg) translateY(-30%);
+  }
+}
+#load {
+  font-size: 3vw;
+  margin-top: 2vw;
+}
+#load:hover {
+  cursor: pointer;
+}
+#loadedPicture {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60%;
-  height: 70%;
   border: 3px solid black;
+  width: 700px; !!!!!!!!!!!!! do zmiany (tymczasowo)
 }
