@@ -41,9 +41,8 @@ H1 {
 }
 #loadedPicture {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: 3px solid black;
-  width: 700px; !!!!!!!!!!!!! do zmiany (tymczasowo)
 }

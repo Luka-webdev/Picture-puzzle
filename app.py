@@ -54,16 +54,29 @@ def show_pages(path):
 )
 def load_picture(contents):
     screen = get_monitors()[0]
-    print(screen)
     if contents != None:
         img = base64.b64decode(contents.split(",")[1])
         img = np.frombuffer(img, dtype=np.uint8)
         img = cv2.imdecode(img, flags=1)
-        width, height, _ = img.shape
-        print(img.shape)
         # img = cv2.cvtColor(src=img, code=cv2.COLOR_BGR2GRAY)
-        # img = imutils.resize(image=img, width=500)
-        print(img.shape)
+        if screen.width > screen.height:
+            if screen.width > 1000:
+                img = imutils.resize(image=img, width=int(screen.width*0.6))
+            elif (screen.width > 700 and screen.width < 1000):
+                img = imutils.resize(image=img, width=int(screen.width*0.7))
+            elif (screen.width > 400 and screen.width < 700):
+                img = imutils.resize(image=img, width=int(screen.width*0.8))
+            elif screen.width < 400:
+                img = imutils.resize(image=img, width=int(screen.width*0.9))
+        elif screen.width < screen.height:
+            if screen.height > 1000:
+                img = imutils.resize(image=img, height=int(screen.height*0.6))
+            elif (screen.height > 700 and screen.height < 1000):
+                img = imutils.resize(image=img, height=int(screen.height*0.7))
+            elif (screen.height > 400 and screen.height < 700):
+                img = imutils.resize(image=img, height=int(screen.height*0.8))
+            elif screen.height < 400:
+                img = imutils.resize(image=img, height=int(screen.height*0.9))
         return html.Img(src=im.fromarray(img), id='loadedPicture')
 
 
