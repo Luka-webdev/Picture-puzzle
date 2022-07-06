@@ -9,7 +9,13 @@ from PIL import Image as im
 import imutils
 from screeninfo import get_monitors
 
-app = dash.Dash(__name__)
+external_stylesheets = [
+    "https://fonts.googleapis.com/css2?family=Titan+One&display=swap",
+    "https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap",
+    "https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+]
+
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.config.suppress_callback_exceptions = True
 
 app.layout = html.Div([
@@ -21,7 +27,7 @@ welcome_screen = html.Div([
     html.Div([
         html.P(id='title1', children="Pic"),
         html.P(id='title2', children="ture"),
-        html.P(id='title3', children=" Puz"),
+        html.P(id='title3', children="  Puz"),
         html.P(id='title4', children="zle"),
     ], id='logo'),
     dcc.Link('Dalej', href='/select', id='link')
@@ -30,7 +36,7 @@ welcome_screen = html.Div([
 select_img = html.Div([
     html.Div([
         html.H1('Wczytaj obraz'),
-        html.P('^'),
+        html.Div(id='arrow'),
         dcc.Upload(html.A('Kliknij tutaj'), id='load')
     ], id='loadArea'),
     html.Div(id='picture')

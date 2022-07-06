@@ -10,15 +10,15 @@
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60%;
-  height: 10vw;
+  width: 80%;
+  display: flex;
+  justify-content: center;
 }
 [id^="title"] {
-  width: 25%;
-  height: 100%;
   float: left;
   font-size: 8vw;
   background-color: wheat;
+  font-family: "Titan One";
 }
 [id^="title"]:nth-child(odd) {
   text-align: right;
@@ -86,6 +86,7 @@
   font-size: 3vw;
   color: antiquewhite;
   animation: link 1s linear 2s forwards;
+  font-family: "Indie Flower";
 }
 @keyframes link {
   from {
