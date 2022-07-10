@@ -1,3 +1,4 @@
+from cmath import pi
 import dash
 from dash import html
 from dash import dcc
@@ -17,6 +18,7 @@ external_stylesheets = [
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.config.suppress_callback_exceptions = True
+picture_parts = []
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
@@ -43,6 +45,17 @@ select_img = html.Div([
 ], id='game')
 
 
+def divide_picture(img):
+    height, width, _ = img.shape
+    coordinatesX = [int(width/4*i) for i in range(5)]
+    coordinatesY = [int(height/4*i) for i in range(5)]
+    for i in range(4):
+        for j in range(4):
+            image = img[coordinatesY[i]:coordinatesY[i+1],
+                        coordinatesX[j]:coordinatesX[j+1]]
+            picture_parts.append(image)
+
+
 @app.callback(
     Output('wrapper', 'children'),
     [Input('url', 'pathname')]
@@ -64,10 +77,11 @@ def load_picture(contents):
         img = base64.b64decode(contents.split(",")[1])
         img = np.frombuffer(img, dtype=np.uint8)
         img = cv2.imdecode(img, flags=1)
-        # img = cv2.cvtColor(src=img, code=cv2.COLOR_BGR2GRAY)
+        img = cv2.cvtColor(src=img, code=cv2.COLOR_BGR2RGB)
         if screen.width > screen.height:
             if screen.width > 1000:
                 img = imutils.resize(image=img, width=int(screen.width*0.6))
+                divide_picture(img)
             elif (screen.width > 700 and screen.width < 1000):
                 img = imutils.resize(image=img, width=int(screen.width*0.7))
             elif (screen.width > 400 and screen.width < 700):
@@ -83,7 +97,7 @@ def load_picture(contents):
                 img = imutils.resize(image=img, height=int(screen.height*0.8))
             elif screen.height < 400:
                 img = imutils.resize(image=img, height=int(screen.height*0.9))
-        return html.Img(src=im.fromarray(img), id='loadedPicture')
+        return html.Div([html.Img(src=im.fromarray(picture_parts[i]), id=str(i)) for i in range(16)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]})
 
 
 if __name__ == '__main__':

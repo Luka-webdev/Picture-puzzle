@@ -52,5 +52,6 @@ H1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 3px solid black;
+  box-shadow: 0px 0px 0px 7px rgba(66, 68, 90, 1);
+  font-size: 0;
 }
