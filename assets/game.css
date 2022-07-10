@@ -54,4 +54,6 @@ H1 {
   transform: translate(-50%, -50%);
   box-shadow: 0px 0px 0px 7px rgba(66, 68, 90, 1);
   font-size: 0;
+  display: flex;
+  flex-wrap: wrap;
 }

@@ -8,6 +8,7 @@ import cv2
 import base64
 from PIL import Image as im
 import imutils
+import random
 from screeninfo import get_monitors
 
 external_stylesheets = [
@@ -54,6 +55,8 @@ def divide_picture(img):
             image = img[coordinatesY[i]:coordinatesY[i+1],
                         coordinatesX[j]:coordinatesX[j+1]]
             picture_parts.append(image)
+    # picture_parts[len(picture_parts) -
+    #               1] = np.ones((int(height/4), int(width/4)), np.uint8)
 
 
 @app.callback(
@@ -73,6 +76,8 @@ def show_pages(path):
 )
 def load_picture(contents):
     screen = get_monitors()[0]
+    images_queue = list(range(16))
+    random.shuffle(images_queue)
     if contents != None:
         img = base64.b64decode(contents.split(",")[1])
         img = np.frombuffer(img, dtype=np.uint8)
@@ -97,7 +102,7 @@ def load_picture(contents):
                 img = imutils.resize(image=img, height=int(screen.height*0.8))
             elif screen.height < 400:
                 img = imutils.resize(image=img, height=int(screen.height*0.9))
-        return html.Div([html.Img(src=im.fromarray(picture_parts[i]), id=str(i)) for i in range(16)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]})
+        return html.Div([html.Img(src=im.fromarray(picture_parts[i]), id=str(i), style={'order': images_queue[i]}) for i in range(16)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]})
 
 
 if __name__ == '__main__':
