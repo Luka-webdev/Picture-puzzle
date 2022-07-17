@@ -29,13 +29,27 @@ function getEmptySpaceValues() {
     let pictureHeight = parseInt(getComputedStyle(loadedPicture).height)
     widthUnit = pictureWidth / 4
     heightUnit = pictureHeight / 4
-    listEmptyValues = [widthUnit * 3, widthUnit * 4, heightUnit * 3, heightUnit * 4]
+    //listEmptyValues = [widthUnit * 3, heightUnit * 3,widthUnit * 4, heightUnit * 4]
+    listEmptyValues = (widthUnit * 3) + (widthUnit * 4) + (heightUnit * 3) + (heightUnit * 4)
+
+    console.log(listEmptyValues, widthUnit, heightUnit)
 }
 
 //finding parts of the picture adjacent to empty space
 
 function activeParts() {
-    let pictureParts = document.getElementsByClassName('pictureParts')
-    console.log(pictureParts[0].style.order)
 
+    let pictureParts = document.getElementsByClassName('pictureParts')
+    let counter = 0;
+    for (let i = 0; i < pictureParts.length; i++) {
+        let elementId = parseInt(pictureParts[i].getAttribute('id'))
+        let widthConverter = elementId % 4
+        let heightConverter = Math.floor(elementId / 4)
+        //let listCssValues = [widthUnit * widthConverter, heightUnit * heightConverter, widthUnit * widthConverter + widthUnit, heightUnit * heightConverter + heightUnit]
+        let listCssValues = (widthUnit * widthConverter) + (heightUnit * heightConverter) + (widthUnit * widthConverter + widthUnit) + (heightUnit * heightConverter + heightUnit)
+        console.log(i, listCssValues)
+        if ((listCssValues + widthUnit * 2 == listEmptyValues) || (listCssValues + heightUnit * 2 == listEmptyValues)) {
+            pictureParts[i].classList.add('active')
+        }
+    }
 }

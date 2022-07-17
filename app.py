@@ -55,6 +55,7 @@ def divide_picture(img):
             image = img[coordinatesY[i]:coordinatesY[i+1],
                         coordinatesX[j]:coordinatesX[j+1]]
             picture_parts.append(image)
+    random.shuffle(picture_parts)
 
 
 @app.callback(
@@ -74,8 +75,6 @@ def show_pages(path):
 )
 def load_picture(contents):
     screen = get_monitors()[0]
-    images_queue = list(range(15))
-    random.shuffle(images_queue)
     if contents != None:
         img = base64.b64decode(contents.split(",")[1])
         img = np.frombuffer(img, dtype=np.uint8)
@@ -100,7 +99,7 @@ def load_picture(contents):
                 img = imutils.resize(image=img, height=int(screen.height*0.8))
             elif screen.height < 400:
                 img = imutils.resize(image=img, height=int(screen.height*0.9))
-        return html.Div([html.Img(src=im.fromarray(picture_parts[i]), id=str(i), className="pictureParts", style={'order': images_queue[i]}) for i in range(15)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]})
+        return html.Div([html.Img(src=im.fromarray(picture_parts[i]), id=str(i), className="pictureParts") for i in range(15)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]})
 
 
 if __name__ == '__main__':
