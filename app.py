@@ -112,7 +112,7 @@ def load_picture(contents):
                 img = imutils.resize(image=img, height=int(screen.height*0.8))
             elif screen.height < 400:
                 img = imutils.resize(image=img, height=int(screen.height*0.9))
-        return html.Div([html.Img(src=im.fromarray(picture_parts[i]), id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(15)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]})
+        return html.Div([html.Div([html.Img(src=im.fromarray(picture_parts[i]))], id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(15)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]})
 
 
 if __name__ == '__main__':

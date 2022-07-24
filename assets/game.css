@@ -59,8 +59,17 @@ H1 {
 }
 
 .active {
-  /* box-shadow: inset 0px 0px 0px 8px rgba(143, 235, 15, 1); */
 }
 .active:hover {
   cursor: pointer;
+}
+.cursor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 60%;
+  border: 3px solid black;
+  content: "sdf";
 }
