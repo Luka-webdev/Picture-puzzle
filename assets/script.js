@@ -4,28 +4,14 @@ let check = setInterval(() => {
     if (wrapperPicture.length > 0) {
         clearInterval(check)
         getEmptySpaceValues()
-        createEmptyBox()
         activeParts()
     }
 }, 1000)
 
-// add to picture parts empty box
-
-function createEmptyBox() {
-    emptyBox = document.createElement('div')
-    emptyBox.style.width = widthUnit + "px"
-    emptyBox.style.height = heightUnit + "px"
-    emptyBox.style.top = (heightUnit * 3) + "px"
-    emptyBox.style.left = (widthUnit * 3) + "px"
-    emptyBox.style.order = 15
-    loadedPicture.appendChild(emptyBox)
-}
-
-
 //get top, bottom, left and right values of empty space 
 
 function getEmptySpaceValues() {
-    loadedPicture = document.getElementById('loadedPicture')
+    let loadedPicture = document.getElementById('loadedPicture')
     let pictureWidth = parseInt(getComputedStyle(loadedPicture).width)
     let pictureHeight = parseInt(getComputedStyle(loadedPicture).height)
     widthUnit = pictureWidth / 4
@@ -59,7 +45,7 @@ function activeParts() {
         let listCssValues = [left, top, left + widthUnit, top + heightUnit]
         let sumEmptyValues = countSum(listEmptyValues)
         let sumCssValues = countSum(listCssValues)
-        if (sumCssValues + 2 * widthUnit == sumEmptyValues || sumCssValues + 2 * heightUnit == sumEmptyValues || sumCssValues - 2 * widthUnit == sumEmptyValues || sumCssValues - 2 * heightUnit == sumEmptyValues) {
+        if ((sumCssValues + 2 * widthUnit == sumEmptyValues || sumCssValues + 2 * heightUnit == sumEmptyValues || sumCssValues - 2 * widthUnit == sumEmptyValues || sumCssValues - 2 * heightUnit == sumEmptyValues) && (Math.abs(listCssValues[0] - listEmptyValues[0]) == widthUnit || (Math.abs(listCssValues[1] - listEmptyValues[1]) == heightUnit))) {
             pictureParts[i].classList.add('active')
             addCursor(pictureParts[i])
             pictureParts[i].lastChild.addEventListener('click', () => {
