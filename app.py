@@ -50,13 +50,13 @@ select_img = html.Div([
 def divide_picture(img):
     height, width, _ = img.shape
     global unit_width
-    unit_width = width//4
+    unit_width = width//3
     global unit_height
-    unit_height = height//4
-    coordinatesX = [int(width/4*i) for i in range(5)]
-    coordinatesY = [int(height/4*i) for i in range(5)]
-    for i in range(4):
-        for j in range(4):
+    unit_height = height//3
+    coordinatesX = [int(width/3*i) for i in range(4)]
+    coordinatesY = [int(height/3*i) for i in range(4)]
+    for i in range(3):
+        for j in range(3):
             image = img[coordinatesY[i]:coordinatesY[i+1],
                         coordinatesX[j]:coordinatesX[j+1]]
             picture_parts.append(image)
@@ -64,8 +64,8 @@ def divide_picture(img):
 
 
 def position_indicators():
-    for i in range(15):
-        indicator = (i % 4, i//4)
+    for i in range(8):
+        indicator = (i % 3, i//3)
         listOfIndicators.append(indicator)
 
 
@@ -112,7 +112,7 @@ def load_picture(contents):
                 img = imutils.resize(image=img, height=int(screen.height*0.8))
             elif screen.height < 400:
                 img = imutils.resize(image=img, height=int(screen.height*0.9))
-        return html.Div([html.Div([html.Img(src=im.fromarray(picture_parts[i]))], id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(15)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]})
+        return html.Div([html.Div([html.Img(src=im.fromarray(picture_parts[i]))], id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(8)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]})
 
 
 if __name__ == '__main__':

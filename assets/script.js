@@ -14,9 +14,9 @@ function getEmptySpaceValues() {
     let loadedPicture = document.getElementById('loadedPicture')
     let pictureWidth = parseInt(getComputedStyle(loadedPicture).width)
     let pictureHeight = parseInt(getComputedStyle(loadedPicture).height)
-    widthUnit = pictureWidth / 4
-    heightUnit = pictureHeight / 4
-    listEmptyValues = [widthUnit * 3, heightUnit * 3, widthUnit * 4, heightUnit * 4]
+    widthUnit = pictureWidth / 3
+    heightUnit = pictureHeight / 3
+    listEmptyValues = [widthUnit * 2, heightUnit * 2, widthUnit * 3, heightUnit * 3]
 }
 
 function countSum(arr) {
