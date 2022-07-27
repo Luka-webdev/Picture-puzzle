@@ -30,7 +30,6 @@ function countSum(arr) {
 function addCursor(parent) {
     let cursor = document.createElement('div')
     cursor.classList.add('cursor')
-    cursor.style.backgroundImage = "url('finger.png')"
     parent.appendChild(cursor)
 }
 
