@@ -76,3 +76,11 @@ H1 {
   background-position: center;
   background-repeat: no-repeat;
 }
+#view {
+  position: absolute;
+  top: 1vw;
+  left: 1vw;
+  text-transform: uppercase;
+  font-family: "Fredoka One";
+  font-style: 2vw;
+}

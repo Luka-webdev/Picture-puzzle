@@ -34,14 +34,14 @@ welcome_screen = html.Div([
         html.P(id='title3', children="  Puz"),
         html.P(id='title4', children="zle"),
     ], id='logo'),
-    dcc.Link('Dalej', href='/select', id='link')
+    dcc.Link('Start', href='/select', id='link')
 ], id='welcomeScreen')
 
 select_img = html.Div([
     html.Div([
-        html.H1('Wczytaj obraz'),
+        html.H1('Load the image'),
         html.Div(id='arrow'),
-        dcc.Upload(html.A('Kliknij tutaj'), id='load')
+        dcc.Upload(html.A('click here'), id='load')
     ], id='loadArea'),
     html.Div(id='picture')
 ], id='game')
@@ -88,10 +88,12 @@ def load_picture(contents):
     screen = get_monitors()[0]
 
     if contents != None:
+
         img = base64.b64decode(contents.split(",")[1])
         img = np.frombuffer(img, dtype=np.uint8)
         img = cv2.imdecode(img, flags=1)
         img = cv2.cvtColor(src=img, code=cv2.COLOR_BGR2RGB)
+        imgPreview = imutils.resize(image=img, width=int(screen.width*0.15))
         if screen.width > screen.height:
             if screen.width > 1000:
                 img = imutils.resize(image=img, width=int(screen.width*0.6))
@@ -112,7 +114,7 @@ def load_picture(contents):
                 img = imutils.resize(image=img, height=int(screen.height*0.8))
             elif screen.height < 400:
                 img = imutils.resize(image=img, height=int(screen.height*0.9))
-        return html.Div([html.Div([html.Img(src=im.fromarray(picture_parts[i]))], id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(8)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]})
+        return [html.Div([html.Div([html.Img(src=im.fromarray(picture_parts[i]))], id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(8)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]}), html.Details([html.Summary('Preview'), html.Img(src=im.fromarray(imgPreview))], id='view')]
 
 
 if __name__ == '__main__':
