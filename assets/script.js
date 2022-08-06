@@ -1,12 +1,15 @@
+let flag = false;
 let check = setInterval(() => {
-    let wrapperPicture = document.getElementById('picture').children
-    console.log(wrapperPicture)
-    if (wrapperPicture.length > 0) {
-        clearInterval(check)
+    let newImg = document.getElementById('newImg')
+    if (newImg && flag == false) {
+        flag = true
         getEmptySpaceValues()
         activeParts()
     }
-}, 1000)
+    newImg.addEventListener('click', () => {
+        flag = false
+    })
+}, 1500)
 
 //get top, bottom, left and right values of empty space 
 

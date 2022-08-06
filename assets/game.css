@@ -78,9 +78,16 @@ H1 {
 }
 #view {
   position: absolute;
-  top: 1vw;
+  top: 3vw;
   left: 1vw;
   text-transform: uppercase;
   font-family: "Fredoka One";
-  font-style: 2vw;
+  font-size: 1.3vw;
+}
+#newImg {
+  position: absolute;
+  top: 1vw;
+  left: 1vw;
+  font-family: "Fredoka One";
+  font-size: 1.3vw;
 }

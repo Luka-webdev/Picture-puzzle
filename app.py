@@ -43,7 +43,7 @@ select_img = html.Div([
         html.Div(id='arrow'),
         dcc.Upload(html.A('click here'), id='load')
     ], id='loadArea'),
-    html.Div(id='picture')
+    html.Div(id='picture'),
 ], id='game')
 
 
@@ -86,7 +86,9 @@ def show_pages(path):
 )
 def load_picture(contents):
     screen = get_monitors()[0]
-
+    if len(listOfIndicators) > 0:
+        listOfIndicators.clear()
+        picture_parts.clear()
     if contents != None:
 
         img = base64.b64decode(contents.split(",")[1])
@@ -114,7 +116,21 @@ def load_picture(contents):
                 img = imutils.resize(image=img, height=int(screen.height*0.8))
             elif screen.height < 400:
                 img = imutils.resize(image=img, height=int(screen.height*0.9))
-        return [html.Div([html.Div([html.Img(src=im.fromarray(picture_parts[i]))], id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(8)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]}), html.Details([html.Summary('Preview'), html.Img(src=im.fromarray(imgPreview))], id='view')]
+        return [html.Div([html.Div([html.Img(src=im.fromarray(picture_parts[i]))], id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(8)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]}), html.Details([html.Summary('Preview'), html.Img(src=im.fromarray(imgPreview))], id='view'), html.Button(id='newImg', children='Load new image')]
+
+
+@app.callback(
+    Output('load', 'contents'),
+    [Input('newImg', 'n_clicks')]
+)
+def clearContent(btn):
+    # btn = dash.callback_context.triggered
+    # triggered_id = btn[0]['prop_id'].split('.')[0]
+    # if triggered_id == 'newImg':
+    #     contents = ""
+    #     return contents
+
+    return
 
 
 if __name__ == '__main__':
