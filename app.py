@@ -23,28 +23,26 @@ picture_parts = []
 listOfIndicators = []
 
 app.layout = html.Div([
-    dcc.Location(id='url', refresh=False),
-    html.Div(id='wrapper')
+    html.Div([
+        html.Div([
+            html.Div([
+                html.P(id='title1', children="Pic"),
+                html.P(id='title2', children="ture"),
+                html.P(id='title3', children="  Puz"),
+                html.P(id='title4', children="zle"),
+            ], id='logo'),
+            dcc.Link('Start', href='/select', id='link')
+        ], id='welcomeScreen'),
+        html.Div([
+            html.Div([
+                html.H1('Load the image'),
+                html.Div(id='arrow'),
+                dcc.Upload(html.A('click here'), id='load')
+            ], id='loadArea'),
+            html.Div(id='picture'),
+        ], id='game')
+    ], id='wrapper')
 ])
-
-welcome_screen = html.Div([
-    html.Div([
-        html.P(id='title1', children="Pic"),
-        html.P(id='title2', children="ture"),
-        html.P(id='title3', children="  Puz"),
-        html.P(id='title4', children="zle"),
-    ], id='logo'),
-    dcc.Link('Start', href='/select', id='link')
-], id='welcomeScreen')
-
-select_img = html.Div([
-    html.Div([
-        html.H1('Load the image'),
-        html.Div(id='arrow'),
-        dcc.Upload(html.A('click here'), id='load')
-    ], id='loadArea'),
-    html.Div(id='picture'),
-], id='game')
 
 
 def divide_picture(img):
@@ -70,17 +68,6 @@ def position_indicators():
 
 
 @app.callback(
-    Output('wrapper', 'children'),
-    [Input('url', 'pathname')]
-)
-def show_pages(path):
-    if path == '/select':
-        return select_img
-    else:
-        return welcome_screen
-
-
-@app.callback(
     Output('picture', 'children'),
     [Input('load', 'contents')]
 )
@@ -103,19 +90,33 @@ def load_picture(contents):
                 position_indicators()
             elif (screen.width > 700 and screen.width < 1000):
                 img = imutils.resize(image=img, width=int(screen.width*0.7))
+                divide_picture(img)
+                position_indicators()
             elif (screen.width > 400 and screen.width < 700):
                 img = imutils.resize(image=img, width=int(screen.width*0.8))
+                divide_picture(img)
+                position_indicators()
             elif screen.width < 400:
                 img = imutils.resize(image=img, width=int(screen.width*0.9))
+                divide_picture(img)
+                position_indicators()
         elif screen.width < screen.height:
             if screen.height > 1000:
                 img = imutils.resize(image=img, height=int(screen.height*0.6))
+                divide_picture(img)
+                position_indicators()
             elif (screen.height > 700 and screen.height < 1000):
                 img = imutils.resize(image=img, height=int(screen.height*0.7))
+                divide_picture(img)
+                position_indicators()
             elif (screen.height > 400 and screen.height < 700):
                 img = imutils.resize(image=img, height=int(screen.height*0.8))
+                divide_picture(img)
+                position_indicators()
             elif screen.height < 400:
                 img = imutils.resize(image=img, height=int(screen.height*0.9))
+                divide_picture(img)
+                position_indicators()
         return [html.Div([html.Div([html.Img(src=im.fromarray(picture_parts[i]))], id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(8)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]}), html.Details([html.Summary('Preview'), html.Img(src=im.fromarray(imgPreview))], id='view'), html.Button(id='newImg', children='Load new image')]
 
 
@@ -124,12 +125,6 @@ def load_picture(contents):
     [Input('newImg', 'n_clicks')]
 )
 def clearContent(btn):
-    # btn = dash.callback_context.triggered
-    # triggered_id = btn[0]['prop_id'].split('.')[0]
-    # if triggered_id == 'newImg':
-    #     contents = ""
-    #     return contents
-
     return
 
 

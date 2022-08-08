@@ -1,15 +1,54 @@
-let flag = false;
-let check = setInterval(() => {
-    let newImg = document.getElementById('newImg')
-    if (newImg && flag == false) {
-        flag = true
-        getEmptySpaceValues()
-        activeParts()
-    }
-    newImg.addEventListener('click', () => {
-        flag = false
+let startGame = setTimeout(() => {
+    let startBtn = document.getElementById('link')
+    let welcomeScreen = document.getElementById('welcomeScreen')
+    startBtn.addEventListener('click', () => {
+        startVerification()
+        welcomeScreen.style.visibility = 'hidden'
     })
-}, 1500)
+    console.log('przycisk start gotowy')
+}, 2000)
+
+function startVerification() {
+    check = setInterval(verification, 1500)
+    console.log('Trwa weryfikacja')
+}
+
+function stopVerification() {
+    clearInterval(check)
+    console.log('Weryfikacja wstrzymana')
+}
+
+function verification() {
+    try {
+        let newImg = document.getElementById('newImg')
+        if (newImg) {
+            stopVerification()
+            getEmptySpaceValues()
+            activeParts()
+            newImg.addEventListener('click', () => {
+                startVerification()
+            })
+            console.log('Wczytano obraz')
+        }
+    } catch {
+
+    }
+}
+// let check = setInterval(() => {
+//     try {
+//         let newImg = document.getElementById('newImg')
+//         if (newImg && flag == false) {
+//             getEmptySpaceValues()
+//             activeParts()
+//             flag = true
+//         }
+//         newImg.addEventListener('click', () => {
+//             flag = false
+//         })
+//     } catch {
+
+//     }
+// }, 1500)
 
 //get top, bottom, left and right values of empty space 
 
