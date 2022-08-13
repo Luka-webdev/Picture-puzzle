@@ -1,21 +1,19 @@
 let startGame = setTimeout(() => {
     let startBtn = document.getElementById('link')
     let welcomeScreen = document.getElementById('welcomeScreen')
+    loadArea = document.getElementById('loadArea')
     startBtn.addEventListener('click', () => {
         startVerification()
         welcomeScreen.style.visibility = 'hidden'
     })
-    console.log('przycisk start gotowy')
 }, 2000)
 
 function startVerification() {
     check = setInterval(verification, 1500)
-    console.log('Trwa weryfikacja')
 }
 
 function stopVerification() {
     clearInterval(check)
-    console.log('Weryfikacja wstrzymana')
 }
 
 function verification() {
@@ -23,32 +21,22 @@ function verification() {
         let newImg = document.getElementById('newImg')
         if (newImg) {
             stopVerification()
-            getEmptySpaceValues()
-            activeParts()
+            loadArea.style.visibility = 'hidden'
+            setTimeout(() => {
+                getEmptySpaceValues()
+                activeParts()
+            }, 600)
             newImg.addEventListener('click', () => {
                 startVerification()
+                setTimeout(() => {
+                    loadArea.style.visibility = 'visible'
+                }, 600)
             })
-            console.log('Wczytano obraz')
         }
     } catch {
 
     }
 }
-// let check = setInterval(() => {
-//     try {
-//         let newImg = document.getElementById('newImg')
-//         if (newImg && flag == false) {
-//             getEmptySpaceValues()
-//             activeParts()
-//             flag = true
-//         }
-//         newImg.addEventListener('click', () => {
-//             flag = false
-//         })
-//     } catch {
-
-//     }
-// }, 1500)
 
 //get top, bottom, left and right values of empty space 
 

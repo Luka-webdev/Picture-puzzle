@@ -1,4 +1,5 @@
 from cmath import pi
+from re import A
 import dash
 from dash import html
 from dash import dcc
@@ -67,6 +68,14 @@ def position_indicators():
         listOfIndicators.append(indicator)
 
 
+def check_divide(arg):
+    if arg % 3 != 0:
+        while arg % 3 != 0:
+            arg = arg+1
+            print(f'{arg}')
+    return arg
+
+
 @app.callback(
     Output('picture', 'children'),
     [Input('load', 'contents')]
@@ -83,40 +92,28 @@ def load_picture(contents):
         img = cv2.imdecode(img, flags=1)
         img = cv2.cvtColor(src=img, code=cv2.COLOR_BGR2RGB)
         imgPreview = imutils.resize(image=img, width=int(screen.width*0.15))
-        if screen.width > screen.height:
-            if screen.width > 1000:
-                img = imutils.resize(image=img, width=int(screen.width*0.6))
-                divide_picture(img)
-                position_indicators()
-            elif (screen.width > 700 and screen.width < 1000):
-                img = imutils.resize(image=img, width=int(screen.width*0.7))
-                divide_picture(img)
-                position_indicators()
-            elif (screen.width > 400 and screen.width < 700):
-                img = imutils.resize(image=img, width=int(screen.width*0.8))
-                divide_picture(img)
-                position_indicators()
-            elif screen.width < 400:
-                img = imutils.resize(image=img, width=int(screen.width*0.9))
-                divide_picture(img)
-                position_indicators()
-        elif screen.width < screen.height:
-            if screen.height > 1000:
-                img = imutils.resize(image=img, height=int(screen.height*0.6))
-                divide_picture(img)
-                position_indicators()
-            elif (screen.height > 700 and screen.height < 1000):
-                img = imutils.resize(image=img, height=int(screen.height*0.7))
-                divide_picture(img)
-                position_indicators()
-            elif (screen.height > 400 and screen.height < 700):
-                img = imutils.resize(image=img, height=int(screen.height*0.8))
-                divide_picture(img)
-                position_indicators()
-            elif screen.height < 400:
-                img = imutils.resize(image=img, height=int(screen.height*0.9))
-                divide_picture(img)
-                position_indicators()
+        if(img.shape[1] >= img.shape[0]):
+            dimensionToCompare = screen.width
+            biggerDimension = check_divide(int(dimensionToCompare*0.6))
+            img = imutils.resize(
+                image=img, width=biggerDimension)
+            secondDimension = check_divide(img.shape[0])
+            img = cv2.resize(
+                img, (biggerDimension, secondDimension))
+            divide_picture(img)
+            position_indicators()
+
+        elif(img.shape[1] < img.shape[0]):
+            dimensionToCompare = screen.height
+            biggerDimension = check_divide(int(dimensionToCompare*0.7))
+            img = imutils.resize(
+                image=img, height=biggerDimension)
+            secondDimension = check_divide(img.shape[1])
+            img = cv2.resize(
+                img, (secondDimension, biggerDimension))
+            divide_picture(img)
+            position_indicators()
+
         return [html.Div([html.Div([html.Img(src=im.fromarray(picture_parts[i]))], id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(8)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]}), html.Details([html.Summary('Preview'), html.Img(src=im.fromarray(imgPreview))], id='view'), html.Button(id='newImg', children='Load new image')]
 
 
