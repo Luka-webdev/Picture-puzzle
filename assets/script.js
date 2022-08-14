@@ -1,3 +1,5 @@
+// remove welcome screen
+
 let startGame = setTimeout(() => {
     let startBtn = document.getElementById('link')
     let welcomeScreen = document.getElementById('welcomeScreen')
@@ -8,29 +10,31 @@ let startGame = setTimeout(() => {
     })
 }, 2000)
 
+// start the image load recognition
+
 function startVerification() {
     check = setInterval(verification, 1500)
 }
+
+// stop the image load recognition
 
 function stopVerification() {
     clearInterval(check)
 }
 
+// image load recognition
+
 function verification() {
     try {
         let newImg = document.getElementById('newImg')
         if (newImg) {
-            stopVerification()
             loadArea.style.visibility = 'hidden'
-            setTimeout(() => {
-                getEmptySpaceValues()
-                activeParts()
-            }, 600)
+            stopVerification()
+            getEmptySpaceValues()
+            activeParts()
             newImg.addEventListener('click', () => {
+                loadArea.style.visibility = 'visible'
                 startVerification()
-                setTimeout(() => {
-                    loadArea.style.visibility = 'visible'
-                }, 600)
             })
         }
     } catch {
@@ -49,6 +53,8 @@ function getEmptySpaceValues() {
     listEmptyValues = [widthUnit * 2, heightUnit * 2, widthUnit * 3, heightUnit * 3]
 }
 
+// function to count sum used to find the active parts of an image
+
 function countSum(arr) {
     let sum = 0
     for (let item of arr) {
@@ -56,6 +62,8 @@ function countSum(arr) {
     }
     return sum
 }
+
+//add an icon to the active parts of the image
 
 function addCursor(parent) {
     let cursor = document.createElement('div')
@@ -85,6 +93,8 @@ function activeParts() {
     }
 }
 
+// restore the original settings of the active elements after clicking on any of them
+
 function originalSettings() {
     let activeElements = document.querySelectorAll('.active')
     for (let i = 0; i < activeElements.length; i++) {
@@ -92,6 +102,8 @@ function originalSettings() {
         activeElements[i].removeChild(document.querySelector('.cursor'))
     }
 }
+
+// change the position of the clicked element of image
 
 function changePosition(item, valuesList) {
     originalSettings()

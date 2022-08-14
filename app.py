@@ -1,5 +1,3 @@
-from cmath import pi
-from re import A
 import dash
 from dash import html
 from dash import dcc
@@ -12,6 +10,8 @@ import imutils
 import random
 from screeninfo import get_monitors
 
+# import of external fonts
+
 external_stylesheets = [
     "https://fonts.googleapis.com/css2?family=Titan+One&display=swap",
     "https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap",
@@ -22,6 +22,8 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.config.suppress_callback_exceptions = True
 picture_parts = []
 listOfIndicators = []
+
+# application structure
 
 app.layout = html.Div([
     html.Div([
@@ -45,6 +47,8 @@ app.layout = html.Div([
     ], id='wrapper')
 ])
 
+# dividing the image into 9 parts
+
 
 def divide_picture(img):
     height, width, _ = img.shape
@@ -61,19 +65,24 @@ def divide_picture(img):
             picture_parts.append(image)
     random.shuffle(picture_parts)
 
+# create a list of indicators used in determining the top and left properties of each part of the image
+
 
 def position_indicators():
     for i in range(8):
         indicator = (i % 3, i//3)
         listOfIndicators.append(indicator)
 
+# a function to check divisibility by three, used in determining the final dimensions of the sheet
+
 
 def check_divide(arg):
     if arg % 3 != 0:
         while arg % 3 != 0:
             arg = arg+1
-            print(f'{arg}')
     return arg
+
+# upload content
 
 
 @app.callback(
@@ -115,6 +124,8 @@ def load_picture(contents):
             position_indicators()
 
         return [html.Div([html.Div([html.Img(src=im.fromarray(picture_parts[i]))], id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(8)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]}), html.Details([html.Summary('Preview'), html.Img(src=im.fromarray(imgPreview))], id='view'), html.Button(id='newImg', children='Load new image')]
+
+# remove the content
 
 
 @app.callback(
