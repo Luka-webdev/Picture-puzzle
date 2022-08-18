@@ -79,7 +79,7 @@
     transform: translateX(0%);
   }
 }
-#link {
+/* #link {
   opacity: 0;
   display: inline-block;
   position: absolute;
@@ -91,12 +91,12 @@
   color: antiquewhite;
   animation: link 1s linear 2s forwards;
   font-family: "Indie Flower";
-}
-@keyframes link {
+} */
+/* @keyframes link {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
   }
-}
+} */

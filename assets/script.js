@@ -3,12 +3,14 @@
 let startGame = setTimeout(() => {
     let startBtn = document.getElementById('link')
     let welcomeScreen = document.getElementById('welcomeScreen')
+    let setDimension = document.getElementById('setDimension')
+    welcomeScreen.style.visibility = 'hidden'
     loadArea = document.getElementById('loadArea')
     startBtn.addEventListener('click', () => {
+        setDimension.style.visibility = 'hidden'
         startVerification()
-        welcomeScreen.style.visibility = 'hidden'
     })
-}, 2000)
+}, 4000)
 
 // start the image load recognition
 

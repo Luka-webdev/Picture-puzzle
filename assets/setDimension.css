@@ -1,0 +1,54 @@
+#setDimension {
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: wheat;
+  /* overflow: hidden; */
+  z-index: 1;
+}
+#msg {
+  position: absolute;
+  top: 7%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3vh;
+}
+#widthSize {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4vw;
+  width: 50%;
+  z-index: 2;
+}
+#heightSize {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  font-size: 4vw;
+  z-index: 2;
+}
+#pictureDimension {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 4px solid black;
+}
+#link {
+  display: inline-block;
+  position: absolute;
+  bottom: 9vh;
+  right: 9vw;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 3vw;
+  color: teal;
+  font-family: "Indie Flower";
+  z-index: 2;
+}

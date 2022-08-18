@@ -8,7 +8,6 @@ import base64
 from PIL import Image as im
 import imutils
 import random
-from screeninfo import get_monitors
 
 # import of external fonts
 
@@ -18,10 +17,14 @@ external_stylesheets = [
     "https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
 ]
 
+
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.config.suppress_callback_exceptions = True
 picture_parts = []
 listOfIndicators = []
+
+startWidth = 450
+startHeight = 300
 
 # application structure
 
@@ -33,9 +36,18 @@ app.layout = html.Div([
                 html.P(id='title2', children="ture"),
                 html.P(id='title3', children="  Puz"),
                 html.P(id='title4', children="zle"),
-            ], id='logo'),
-            dcc.Link('Start', href='/select', id='link')
+            ], id='logo')
         ], id='welcomeScreen'),
+        html.Div([
+            html.P(children="HELLO !!!\nAt the beginning, please select the maximum area on which the photo will be displayed using the sliders", id="msg"),
+            dcc.Slider(0, 2, 0.1, value=1, marks=None, tooltip={
+                       'placement': 'bottom'}, id="widthSize"),
+            dcc.Slider(0, 2, 0.1, value=1, marks=None, vertical=True, tooltip={
+                       'placement': 'right'}, id="heightSize"),
+            html.Div(style={'width': startWidth,
+                     'height': startHeight}, id="pictureDimension"),
+            dcc.Link('Ready', href='/select', id='link')
+        ], id='setDimension'),
         html.Div([
             html.Div([
                 html.H1('Load the image'),
@@ -46,6 +58,22 @@ app.layout = html.Div([
         ], id='game')
     ], id='wrapper')
 ])
+
+# the user indicates the maximum area that the photo will occupy
+
+
+@app.callback(
+    Output('pictureDimension', 'style'),
+    [Input('widthSize', 'value'),
+     Input('heightSize', 'value'), ]
+)
+def change_dimension(val1, val2):
+    global newWidth
+    newWidth = int(startWidth*val1)
+    global newHeight
+    newHeight = int(startHeight*val2)
+    return {'width': newWidth, 'height': newHeight}
+
 
 # dividing the image into 9 parts
 
@@ -90,7 +118,6 @@ def check_divide(arg):
     [Input('load', 'contents')]
 )
 def load_picture(contents):
-    screen = get_monitors()[0]
     if len(listOfIndicators) > 0:
         listOfIndicators.clear()
         picture_parts.clear()
@@ -100,10 +127,9 @@ def load_picture(contents):
         img = np.frombuffer(img, dtype=np.uint8)
         img = cv2.imdecode(img, flags=1)
         img = cv2.cvtColor(src=img, code=cv2.COLOR_BGR2RGB)
-        imgPreview = imutils.resize(image=img, width=int(screen.width*0.15))
+        imgPreview = imutils.resize(image=img, width=int(newWidth*0.2))
         if(img.shape[1] >= img.shape[0]):
-            dimensionToCompare = screen.width
-            biggerDimension = check_divide(int(dimensionToCompare*0.6))
+            biggerDimension = check_divide(newWidth)
             img = imutils.resize(
                 image=img, width=biggerDimension)
             secondDimension = check_divide(img.shape[0])
@@ -113,8 +139,7 @@ def load_picture(contents):
             position_indicators()
 
         elif(img.shape[1] < img.shape[0]):
-            dimensionToCompare = screen.height
-            biggerDimension = check_divide(int(dimensionToCompare*0.7))
+            biggerDimension = check_divide(newHeight)
             img = imutils.resize(
                 image=img, height=biggerDimension)
             secondDimension = check_divide(img.shape[1])
@@ -122,7 +147,6 @@ def load_picture(contents):
                 img, (secondDimension, biggerDimension))
             divide_picture(img)
             position_indicators()
-
         return [html.Div([html.Div([html.Img(src=im.fromarray(picture_parts[i]))], id=str(i), className="pictureParts", style={'position': 'absolute', 'left': listOfIndicators[i][0]*unit_width, 'top':listOfIndicators[i][1]*unit_height}) for i in range(8)], id='loadedPicture', style={'width': img.shape[1], 'height': img.shape[0]}), html.Details([html.Summary('Preview'), html.Img(src=im.fromarray(imgPreview))], id='view'), html.Button(id='newImg', children='Load new image')]
 
 # remove the content
