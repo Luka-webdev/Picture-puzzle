@@ -9,6 +9,31 @@
   overflow: hidden;
   z-index: 2;
 }
+#closeArrow {
+  position: absolute;
+  bottom: 10vh;
+  right: 10vw;
+  transform: rotate(270deg);
+  width: 8vw;
+  height: 8vw;
+  background-image: url("arrow2.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  opacity: 0;
+  animation: appear 2s 2s linear infinite;
+}
+#closeArrow:hover {
+  cursor: pointer;
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 #logo {
   position: absolute;
   top: 40%;
@@ -21,8 +46,12 @@
 [id^="title"] {
   float: left;
   font-size: 8vw;
-  background-color: wheat;
+  /* background-color: wheat; */
   font-family: "Titan One";
+  color: #44bd32;
+  text-shadow: 4px 4px 0 maroon, 4px -4px 0 maroon, -4px 4px 0 maroon,
+    -4px -4px 0 maroon, 4px 0px 0 maroon, 0px 4px 0 maroon, -4px 0px 0 maroon,
+    0px -4px 0 maroon;
 }
 [id^="title"]:nth-child(odd) {
   text-align: right;
@@ -79,24 +108,3 @@
     transform: translateX(0%);
   }
 }
-/* #link {
-  opacity: 0;
-  display: inline-block;
-  position: absolute;
-  bottom: 9vh;
-  right: 9vw;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 3vw;
-  color: antiquewhite;
-  animation: link 1s linear 2s forwards;
-  font-family: "Indie Flower";
-} */
-/* @keyframes link {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-} */

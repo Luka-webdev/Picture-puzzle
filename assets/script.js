@@ -4,13 +4,17 @@ let startGame = setTimeout(() => {
     let startBtn = document.getElementById('link')
     let welcomeScreen = document.getElementById('welcomeScreen')
     let setDimension = document.getElementById('setDimension')
-    welcomeScreen.style.visibility = 'hidden'
+    let closeArrow = document.getElementById('closeArrow')
     loadArea = document.getElementById('loadArea')
+    fail = document.getElementById('#fail')
+    closeArrow.addEventListener('click', () => {
+        welcomeScreen.style.visibility = 'hidden'
+    })
     startBtn.addEventListener('click', () => {
         setDimension.style.visibility = 'hidden'
         startVerification()
     })
-}, 4000)
+}, 2000)
 
 // start the image load recognition
 
@@ -34,13 +38,19 @@ function verification() {
             stopVerification()
             getEmptySpaceValues()
             activeParts()
+            let cursors = document.getElementsByClassName('cursor')
+            setTimeout(() => {
+                if (cursors.length == 0) {
+                    fail.style.visibility = 'visible'
+                }
+            }, 3000)
             newImg.addEventListener('click', () => {
                 loadArea.style.visibility = 'visible'
                 startVerification()
             })
         }
     } catch {
-
+        fail.style.visibility = 'visible'
     }
 }
 

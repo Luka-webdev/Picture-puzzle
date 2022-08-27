@@ -36,14 +36,16 @@ app.layout = html.Div([
                 html.P(id='title2', children="ture"),
                 html.P(id='title3', children="  Puz"),
                 html.P(id='title4', children="zle"),
-            ], id='logo')
+            ], id='logo'),
+            html.Div(id='closeArrow'),
         ], id='welcomeScreen'),
         html.Div([
-            html.P(children="HELLO !!!\nAt the beginning, please select the maximum area on which the photo will be displayed using the sliders", id="msg"),
+            html.P(children=[html.B(
+                "HELLO !!!"), html.Br(), "At the beginning, please select the maximum area on which the photo will be displayed using the sliders."], id="msg"),
             dcc.Slider(0, 2, 0.1, value=1, marks=None, tooltip={
                        'placement': 'bottom'}, id="widthSize"),
             dcc.Slider(0, 2, 0.1, value=1, marks=None, vertical=True, tooltip={
-                       'placement': 'right'}, id="heightSize"),
+                       'placement': 'right'}, verticalHeight=300, id="heightSize"),
             html.Div(style={'width': startWidth,
                      'height': startHeight}, id="pictureDimension"),
             dcc.Link('Ready', href='/select', id='link')
@@ -127,7 +129,7 @@ def load_picture(contents):
         img = np.frombuffer(img, dtype=np.uint8)
         img = cv2.imdecode(img, flags=1)
         img = cv2.cvtColor(src=img, code=cv2.COLOR_BGR2RGB)
-        imgPreview = imutils.resize(image=img, width=int(newWidth*0.2))
+        imgPreview = imutils.resize(image=img, width=int(newWidth*0.3))
         if(img.shape[1] >= img.shape[0]):
             biggerDimension = check_divide(newWidth)
             img = imutils.resize(
@@ -157,7 +159,11 @@ def load_picture(contents):
     [Input('newImg', 'n_clicks')]
 )
 def clearContent(btn):
-    return
+    try:
+        return
+    except:
+        return html.Div([html.B('SORRY :('), html.P(
+            'I have a problem. Refresh your browser to try again.')], id='fail')
 
 
 if __name__ == '__main__':

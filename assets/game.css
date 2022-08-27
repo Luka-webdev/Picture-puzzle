@@ -9,7 +9,7 @@
 }
 #loadArea {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
@@ -24,7 +24,6 @@ H1 {
   font-family: "Fredoka One";
 }
 #arrow {
-  /* font-size: 4vw; */
   width: 7vw;
   height: 7vw;
   background-image: url("arrow.png");
@@ -46,6 +45,7 @@ H1 {
   font-size: 3vw;
   margin-top: 2vw;
   font-family: "Indie Flower";
+  font-weight: bold;
 }
 #load:hover {
   cursor: pointer;
@@ -81,7 +81,7 @@ H1 {
 }
 #view {
   position: absolute;
-  top: 3.2vw;
+  top: 4.2vw;
   left: 1vw;
   text-transform: uppercase;
   font-family: "Fredoka One";
@@ -93,4 +93,29 @@ H1 {
   left: 1vw;
   font-family: "Fredoka One";
   font-size: 1.3vw;
+  padding: 3px;
+}
+#fail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vw;
+  border: 3px solid maroon;
+  background-color: #1e272e;
+  color: wheat;
+  font-weight: bold;
+  padding: 2vw;
+  border-radius: 5vw;
+  text-align: center;
+  visibility: hidden;
+}
+#fail B {
+  font-family: "Fredoka One";
+  color: maroon;
+  font-size: 4vw;
+}
+#fail p {
+  font-family: "Indie Flower";
+  font-size: 3vw;
 }
