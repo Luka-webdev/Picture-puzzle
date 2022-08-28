@@ -46,7 +46,6 @@
 [id^="title"] {
   float: left;
   font-size: 8vw;
-  /* background-color: wheat; */
   font-family: "Titan One";
   color: #44bd32;
   text-shadow: 4px 4px 0 maroon, 4px -4px 0 maroon, -4px 4px 0 maroon,

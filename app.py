@@ -24,7 +24,7 @@ picture_parts = []
 listOfIndicators = []
 
 startWidth = 450
-startHeight = 300
+startHeight = 320
 
 # application structure
 
@@ -159,11 +159,7 @@ def load_picture(contents):
     [Input('newImg', 'n_clicks')]
 )
 def clearContent(btn):
-    try:
-        return
-    except:
-        return html.Div([html.B('SORRY :('), html.P(
-            'I have a problem. Refresh your browser to try again.')], id='fail')
+    return
 
 
 if __name__ == '__main__':

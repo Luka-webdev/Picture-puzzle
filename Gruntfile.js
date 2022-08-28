@@ -4,14 +4,14 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         autoprefixer: {
             dist: {
-                src: 'css/style.css',
-                dest: 'css/styleprefixer.css'
+                src: 'css/styles.css',
+                dest: 'assets/styleprefixer.css'
             }
         },
         cssmin: {
             target: {
                 files: {
-                    'css/styleprefixer.min.css': ['css/styleprefixer.css']
+                    'css/styles.css': ['css/main.css', 'css/welcomeScreen.css', 'css/setDimension.css', 'css/game.css']
                 }
             }
         },

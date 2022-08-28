@@ -6,7 +6,6 @@ let startGame = setTimeout(() => {
     let setDimension = document.getElementById('setDimension')
     let closeArrow = document.getElementById('closeArrow')
     loadArea = document.getElementById('loadArea')
-    fail = document.getElementById('#fail')
     closeArrow.addEventListener('click', () => {
         welcomeScreen.style.visibility = 'hidden'
     })
@@ -31,26 +30,16 @@ function stopVerification() {
 // image load recognition
 
 function verification() {
-    try {
-        let newImg = document.getElementById('newImg')
-        if (newImg) {
-            loadArea.style.visibility = 'hidden'
-            stopVerification()
-            getEmptySpaceValues()
-            activeParts()
-            let cursors = document.getElementsByClassName('cursor')
-            setTimeout(() => {
-                if (cursors.length == 0) {
-                    fail.style.visibility = 'visible'
-                }
-            }, 3000)
-            newImg.addEventListener('click', () => {
-                loadArea.style.visibility = 'visible'
-                startVerification()
-            })
-        }
-    } catch {
-        fail.style.visibility = 'visible'
+    let newImg = document.getElementById('newImg')
+    if (newImg) {
+        loadArea.style.visibility = 'hidden'
+        stopVerification()
+        getEmptySpaceValues()
+        activeParts()
+        newImg.addEventListener('click', () => {
+            loadArea.style.visibility = 'visible'
+            startVerification()
+        })
     }
 }
 
